@@ -69,6 +69,12 @@ export default function Messages() {
     if (user?.token) fetchConvos();
   }, [user]);
 
+  const openChat = (conv) => {
+    const conversationId = [userId, conv.otherUser._id].sort().join('_');
+    setActiveChat({ otherUser: conv.otherUser, conversationId });
+    setTyping('');
+  };
+
   // Handle startChatWith redirect state
   useEffect(() => {
     if (loading || !user) return;
@@ -172,12 +178,6 @@ export default function Messages() {
     typingTimeout.current = setTimeout(() => {
       socket.emit('stopTyping', { receiverId: activeChat.otherUser._id });
     }, 1500);
-  };
-
-  const openChat = (conv) => {
-    const conversationId = [userId, conv.otherUser._id].sort().join('_');
-    setActiveChat({ otherUser: conv.otherUser, conversationId });
-    setTyping('');
   };
 
   const isOnline = (id) => globalOnlineUsers.includes(id?.toString());

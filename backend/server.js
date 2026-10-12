@@ -124,6 +124,18 @@ app.use('/api/payouts', require('./routes/payoutRoutes'));
 
 const PORT = process.env.PORT || 5000;
 
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`\n❌ Error: Port ${PORT} is already in use by another process.`);
+    console.error(`💡 Tip: Another terminal or window is already running the backend.`);
+    console.error(`   To free port ${PORT} on Windows PowerShell, run:`);
+    console.error(`   Stop-Process -Id (Get-NetTCPConnection -LocalPort ${PORT}).OwningProcess -Force\n`);
+  } else {
+    console.error(`Server error:`, err.message);
+  }
+  process.exit(1);
+});
+
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT} with Socket.io`);
 });

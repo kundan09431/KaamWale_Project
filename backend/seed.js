@@ -5,6 +5,7 @@ const User = require('./models/User');
 const Booking = require('./models/Booking');
 
 dotenv.config();
+const connectDB = require('./config/db');
 
 const categories = ['Labour', 'Mason', 'Plumber', 'Electrician', 'Carpenter', 'Tutor', 'Painter', 'Mechanic', 'AC Repair'];
 const locations = ['Andheri East, Mumbai', 'Bandra West, Mumbai', 'Dadar, Mumbai', 'Worli, Mumbai', 'Juhu, Mumbai', 'Powai, Mumbai', 'Goregaon, Mumbai', 'Malad, Mumbai', 'Koramangala, Bengaluru', 'Indiranagar, Bengaluru', 'Lajpat Nagar, Delhi', 'Connaught Place, Delhi'];
@@ -113,7 +114,7 @@ const generateBookings = (insertedUsers) => {
 
 const seedDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await connectDB();
     console.log('MongoDB Connected for Large Data Seeding...');
 
     console.log('Clearing existing data...');

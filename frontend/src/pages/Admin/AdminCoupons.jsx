@@ -12,10 +12,6 @@ export default function AdminCoupons() {
   const [showModal, setShowModal] = useState(false);
   const [newCoupon, setNewCoupon] = useState({ code: '', discountPercentage: '', maxDiscount: '', expiryDate: '' });
 
-  useEffect(() => {
-    fetchCoupons();
-  }, []);
-
   const fetchCoupons = async () => {
     try {
       const res = await fetch('http://localhost:5000/api/admin/coupons', {
@@ -29,6 +25,10 @@ export default function AdminCoupons() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchCoupons();
+  }, []);
 
   const handleCreate = async (e) => {
     e.preventDefault();

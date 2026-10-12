@@ -15,54 +15,42 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-      
-      setUser(data);
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      return data;
-    } catch (error) {
-      throw error;
-    }
+    const res = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message);
+    
+    setUser(data);
+    localStorage.setItem('userInfo', JSON.stringify(data));
+    return data;
   };
 
   const register = async (userData) => {
-    try {
-      const res = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-      
-      setUser(data);
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      return data;
-    } catch (error) {
-      throw error;
-    }
+    const res = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userData)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message);
+    
+    setUser(data);
+    localStorage.setItem('userInfo', JSON.stringify(data));
+    return data;
   };
 
   const sendOtp = async (email, phone) => {
-    try {
-      const res = await fetch('http://localhost:5000/api/auth/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, phone })
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-      return data;
-    } catch (error) {
-      throw error;
-    }
+    const res = await fetch('http://localhost:5000/api/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, phone })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message);
+    return data;
   };
 
   const logout = () => {
